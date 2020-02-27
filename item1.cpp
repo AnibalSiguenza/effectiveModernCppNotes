@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     fref(a_cons_tint);  // passes the const property fref(const int&)
     fref(a_const_ref);  // passes the const property fref(const int&)
 
-    fvalue(foo);  // it uses function as a pointer fref((*t)(int a, int b))
+    fvalue(foo);  // it uses function as a pointer fvalue((*t)(int a, int b))
     fref(foo);    // it uses function as a ref fref((&t)(int a, int b))
 
     // useless cases (just to impress people)
