@@ -1,3 +1,5 @@
+//This item explains the rule of type deduction for auto keyword
+
 #include <bits/stdc++.h>
 
 void foo(int a, int b) {
@@ -17,6 +19,7 @@ void fValid(std::initializer_list<T> t) {
 int main(int argc, char* argv[]) {
     // common cases:
     int a_int = 3;
+    int& a_ref = a_int;
     const int a_cons_tint = 3;
     const int& a_const_ref = a_int;
     int* a_ptr_int;
@@ -25,6 +28,7 @@ int main(int argc, char* argv[]) {
 
     //The rules are the same as for the item 1 for the next cases /////////////////////////////////
     auto a_auto_int = a_int;                        // simply gets int
+    auto a_auto_ref = a_ref;                        // simply gets int. Looses the reference property
     auto a_auto_cons_tint = a_cons_tint;            // simply gets int
     auto a_auto_ref = a_int;                        // simply gets int
     auto a_auto_ptr_int = a_ptr_int;                // simply gets int *

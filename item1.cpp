@@ -1,3 +1,5 @@
+//This item explains the rule of type deduction for templates
+
 #include <bits/stdc++.h>
 
 void foo(int a, int b) {
@@ -26,6 +28,7 @@ constexpr std::size_t farray(T (&array)[N]) noexcept {
 int main(int argc, char* argv[]) {
     // common cases:
     int a_int = 3;
+    int& a_ref = a_int;
     const int a_cons_tint = 3;
     const int& a_const_ref = a_int;
     int* a_ptr_int;
@@ -33,6 +36,7 @@ int main(int argc, char* argv[]) {
     const int* const a_2const_ptr_int = &a_int;
 
     fvalue(a_int);             // simply gets fvalue(int)
+    fvalue(a_ref);             // simply gets fvalue(int) looses the reference property
     fvalue(a_cons_tint);       // simply gets fvalue(int)
     fvalue(a_const_ref);       // simply gets fvalue(int)
     fvalue(a_ptr_int);         // simply gets fvalue(int *)
