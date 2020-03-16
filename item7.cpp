@@ -8,8 +8,15 @@ class Foo {
 
    public:
     Foo() {}
-    Foo(int a) : _a(a) {}
-    ~Foo(){};
+    Foo(int a) : _a(a) {
+        std::cout << "Foo(int a)=Foo(" << a << ")" << std::endl;
+    }
+    Foo(int a, double b) : _a(a) {
+        std::cout << "Foo(int a, double b) = Foo(" << a << ","
+                  << b
+                  << ")" << std::endl;
+    }
+    // ~Foo(){};
 };
 
 class Popo {
@@ -109,5 +116,9 @@ int main(int argc, char* argv[]) {
     for (auto& elem : vBra) {
         std::cout << "elem=" << elem << std::endl;
     }
+
+    Foo f{0, 1.23};
+    std::vector<Foo> vFoo = {{0, 1.231}, {3, .321132}, {5, .14789}};
+
     return 0;
 }
