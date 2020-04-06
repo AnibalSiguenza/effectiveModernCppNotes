@@ -24,12 +24,11 @@ class TestClass {
         return *this;
     }
     const TestClass& operator=(const TestClass&& x) {
-        _name = x._name;
+        _name = std::move(x._name);
         std::cout << "Move Assign " << _name << std::endl;
         return *this;
     }
-    TestClass(const TestClass&& x) {
-        _name = x._name;
+    TestClass(const TestClass&& x) : _name(std::move(x._name)) {
         std::cout << "Move Constructor " << _name << std::endl;
     }
     void hello() {
