@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
     fvalue(a_2const_ptr_int);  // second const gets ignored fvalue(const int *)
 
     fref(a_int);             // simply gets fref(int&)
+    fref(a_ref);             // simply gets fvalue(int) looses the reference property
     fref(a_cons_tint);       // passes the const property fref(const int&)
     fref(a_const_ref);       // passes the const property fref(const int&)
     fref(a_ptr_int);         // passes the reference to a pointer fref(int *&t)

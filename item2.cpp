@@ -36,6 +36,7 @@ int main(int argc, char* argv[]) {
     auto a_auto_2const_ptr_int = a_2const_ptr_int;  // second const gets ignored const int *
 
     auto& a_autoref_int = a_int;              // simply gets int&
+    auto& a_autoref_ref = a_ref;              // simply gets int&
     auto& a_autoref_cons_tint = a_cons_tint;  // passes the const property const int&
     auto& a_autoref_const_ref = a_const_ref;  // passes the const property const int&
 
