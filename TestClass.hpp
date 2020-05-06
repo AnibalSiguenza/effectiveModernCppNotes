@@ -23,13 +23,15 @@ class TestClass {
         std::cout << "Assign " << _name << std::endl;
         return *this;
     }
-    const TestClass& operator=(const TestClass&& x) {
+    const TestClass& operator=(TestClass&& x) {
         _name = std::move(x._name);
         std::cout << "Move Assign " << _name << std::endl;
+        x._name = "invalid " + _name;
         return *this;
     }
-    TestClass(const TestClass&& x) : _name(std::move(x._name)) {
+    TestClass(TestClass&& x) : _name(std::move(x._name)) {
         std::cout << "Move Constructor " << _name << std::endl;
+        x._name = "invalid " + _name;
     }
     void hello() {
         std::cout << _name << " says hi! ;)" << std::endl;

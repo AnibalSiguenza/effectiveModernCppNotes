@@ -1,50 +1,36 @@
-// this items defines the universal references which basically is reference which is only possible in a type deduction context and which
-// takes all the characteristics (constannes and volatility) of the intance passed to it
+// this item talks about the difference and real implementation of move and fordward. The first makes a cast to
+// rvalue always, the second is a conditional casting which makes is only if the variable was initialize with an
+// rvalue.
 #include <bits/stdc++.h>
 
-#include "TestClass.hpp"
-
-// T&& is universal because T must be type deducted and it has the double &&
-template <typename T>
-void universalReference(T &&x) {
+void foo(int &tc) {
+    std::cout << "lvalue foo" << std::endl;
+}
+void foo(int &&tc) {
+    std::cout << "rvalue foo" << std::endl;
 }
 
-// this is not universal because there is a const, any modification will make the function template a rvalue reference
-template <typename T>
-void notUniversalReference(const T &&x) {
+template <class T>
+void fmove(T &&t) {
+    foo(std::move(t));
+}
+
+template <class T>
+void fforward(T &&t) {
+    foo(std::forward<T>(t));
 }
 
 int main(int argc, char *argv[]) {
     int lvalue = 0;
-    const int const_lvalue = 0;
-    volatile int volatile_lvalue = 0;
-    const volatile int const_volatile_lvalue = 0;
 
-    // universal reference passes the references with all its characteristics (const, volatile)
-    universalReference(lvalue);                 // universalReference(int & x)
-    universalReference(const_lvalue);           // universalReference(const int & x)
-    universalReference(volatile_lvalue);        // universalReference(volatile int & x)
-    universalReference(const_volatile_lvalue);  // universalReference(const volatile int & x)
+    // move always cast the value to an rvalue so the next 2 functions will called the rvalue version of foo
+    fmove(0);       // calls the foo(int &&tc)
+    fmove(lvalue);  // calls the foo(int &&tc)
 
-    // samewise for rvalues
-    universalReference(std::move(lvalue));                 // universalReference(int && x)
-    universalReference(std::move(const_lvalue));           // universalReference(const int && x)
-    universalReference(std::move(volatile_lvalue));        // universalReference(volatile int && x)
-    universalReference(std::move(const_volatile_lvalue));  // universalReference(const volatile int && x)
-    universalReference(3.7654);                            // universalReference(double && x)
-
-    // auto&& is also a universal reference
-    auto &&auto_lvalue = lvalue;                                             // int&
-    auto &&auto_const_lvalue = const_lvalue;                                 // const int&
-    auto &&auto_volatile_lvalue = volatile_lvalue;                           // volatile int&
-    auto &&auto_const_volatile_lvalue = const_volatile_lvalue;               // const volatile int&
-    auto &&auto_lvalue_2 = std::move(lvalue);                                // int&&
-    auto &&auto_const_lvalue_2 = std::move(const_lvalue);                    // const int&&
-    auto &&auto_volatile_lvalue_2 = std::move(volatile_lvalue);              // volatile int&&
-    auto &&auto_const_volatile_lvalue_2 = std::move(const_volatile_lvalue);  // const volatile int&&
-
-    //notUniversalReference(lvalue);             // error because lvalue is not an rvalue
-    notUniversalReference(std::move(lvalue));  // notUniversalReference(const int && x)
+    // forward cast the value to rvalue only if the value was a rvalue since this is universal reference the
+    // lvalue calls a fforward(int & t). And passes forwards the reference as it was received to the foo function
+    fforward(0);       // calls the foo(int &&tc)
+    fforward(lvalue);  // calls the foo(int &tc)
 
     return 0;
 }
