@@ -35,11 +35,11 @@ int main(int argc, char *argv[]) {
 
     // same for auto
     auto &&autoLvalue = lvalue;  // int &autoLvalue
-    auto &&autoLvalue = 123;     // int &&autoLvalue
+    auto &&autoRvalue = 123;     // int &&autoLvalue
 
     // same for typedef
-    Foo<int &>::RvalueRef;   // typedef int &Foo<int &>::RvalueRef
-    Foo<int &&>::RvalueRef;  // typedef int &&Foo<int &&>::RvalueRef
+    using IntRvalueRef = Foo<int &>::RvalueRef;      // typedef int &Foo<int &>::RvalueRef
+    using IntRvalueRefRef = Foo<int &&>::RvalueRef;  // typedef int &&Foo<int &&>::RvalueRef
 
     // tricky case: remember that rvaluereference is lvalue so this generates l value call
     rReferenceFunction(rvalueref);  //rReferenceFunction<int &>(int &t)
