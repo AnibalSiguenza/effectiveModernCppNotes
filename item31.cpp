@@ -10,7 +10,7 @@ void addFunction(std::vector<std::function<bool(int)>> &funcVector) {
      * DOES NOT CAPTURE STATIC VALUES. Try to explicit declare a capture uncomenting next line. So the default capture simply 
      * ignores the capture of divisor and  DIRECTLY uses the divisor static variable. SUUUUPER dangerous
      */
-    // funcVector.emplace_back([= divisor](int x) { return true; }); // wont compile because divisor is static and cannot be captured
+    // funcVector.emplace_back([divisor](int x) { return true; });  // wont compile because divisor is static and cannot be captured
     funcVector.emplace_back([=](int x) {
         std::cout << "divisor=" << divisor << std::endl;
         return 0 == (x % divisor);
@@ -37,7 +37,7 @@ class Foo {
          * since it sould produce a compile error that the disivor is not a variable
          * 
          */
-        // funcVector.emplace_back([= divisor](int x) { return true; });  // wont compile because divisor is not a variable
+        // funcVector.emplace_back([divisor](int x) { return true; });  // wont compile because divisor is not a variable
         funcVector.emplace_back([=](int x) {
             std::cout << "divisor=" << divisor << std::endl;
             return 0 == (x % divisor);

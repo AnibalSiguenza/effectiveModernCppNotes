@@ -33,7 +33,11 @@ class TestClass {
         std::cout << "Move Constructor " << _name << std::endl;
         x._name = "invalid " + _name;
     }
-    void hello() {
+    void setName(std::string name) {
+        _name = name;
+    }
+
+    void hello() const {
         std::cout << _name << " says hi! ;)" << std::endl;
     }
 };
