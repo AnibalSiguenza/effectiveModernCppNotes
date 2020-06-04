@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
     int* a_ptr_int;
     const int* a_const_ptr_int;
     const int* const a_2const_ptr_int = &a_int;
+    volatile int a_vol = 123;
 
     //The rules are the same as for the item 1 for the next cases /////////////////////////////////
     auto a_auto_int = a_int;                        // simply gets int
@@ -34,11 +35,13 @@ int main(int argc, char* argv[]) {
     auto a_auto_ptr_int = a_ptr_int;                // simply gets int *
     auto a_auto_const_ptr_int = a_const_ptr_int;    // respects the const const int *
     auto a_auto_2const_ptr_int = a_2const_ptr_int;  // second const gets ignored const int *
+    auto a_auto_vol = a_vol;                        // simple gets int
 
     auto& a_autoref_int = a_int;              // simply gets int&
     auto& a_autoref_ref = a_ref;              // simply gets int&
     auto& a_autoref_cons_tint = a_cons_tint;  // passes the const property const int&
     auto& a_autoref_const_ref = a_const_ref;  // passes the const property const int&
+    auto& a_autoref_vol = a_vol;              // passes the volatile const property making it auto a_auto_vol = a_vol;
 
     auto f_auto_value = foo;  // it uses function as a pointer ((*t)(int a, int b))
     auto& f_auto_ref = foo;   // it uses function as a ref ((&t)(int a, int b))
