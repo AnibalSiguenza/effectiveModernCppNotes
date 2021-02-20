@@ -40,15 +40,25 @@ decltype(auto) foo() {
 int main(int argc, char *argv[]) {
   // common cases:
   int a_int = 3;
+  int &a_ref = a_int;
   const int a_cons_tint = 3;
   const int &a_const_ref = a_int;
   int *a_ptr_int;
   const int *a_const_ptr_int;
   const int *const a_2const_ptr_int = &a_int;
 
+  decltype(auto) auto_int = a_int;
+  decltype(auto) auto_ref = a_ref;
+  decltype(auto) auto_cons_tint = a_cons_tint;
+  decltype(auto) auto_const_ref = a_const_ref;
+  decltype(auto) auto_ptr_int = a_ptr_int;
+  decltype(auto) auto_const_ptr_int = a_const_ptr_int;
+  decltype(auto) auto_2const_ptr_int = a_2const_ptr_int;
+
   // All this cases return exactly what is expected which is the exact match of
   // types
   Popo<decltype(a_int)> p_int;                       // Popo<int>
+  Popo<decltype(a_ref)> p_ref;                       // Popo<int &>
   Popo<decltype(a_cons_tint)> p_cons_tint;           // Popo<const int>
   Popo<decltype(a_const_ref)> p_const_ref;           // Popo<const int&>
   Popo<decltype(a_ptr_int)> p_ptr_int;               // Popo<int*>

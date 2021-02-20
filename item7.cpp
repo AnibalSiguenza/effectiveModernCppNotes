@@ -75,9 +75,9 @@ int main(int argc, char *argv[]) {
   Foo f1(3.432);
   // Foo f2{3.432};     //This producess error in compile time
   // Foo f3 = {3.432};  //This producess error in compile time
-  Foo f4{
-      static_cast<int>(23.5)}; // You need to explicitely cast to call the
-                               // Foo(int) constructure which is less error-prone
+  Foo f4{static_cast<int>(
+      23.5)}; // You need to explicitely cast to call the
+              // Foo(int) constructure which is less error-prone
 
   Popo p1(10, true);
   p1.print();
